@@ -17,9 +17,11 @@
 ## 🏗️ Come funziona
 
 ```
-GitHub Actions (ogni giorno alle 08:00)
+GitHub Actions (ogni giorno alle 09:00 UTC)
         ↓
 Scraping di concorsipubblici.com
+        ↓
+Scarta i bandi già scaduti
         ↓
 Filtra i bandi per keyword (funzionario, specialista...)
         ↓
@@ -29,6 +31,22 @@ Per ogni bando nuovo → valutazione AI con il tuo profilo
         ↓
 Notifica Telegram con link e valutazione
 ```
+
+### Quando il bot scrive (e quando tace)
+
+Il bot manda un messaggio **solo** quando trova un bando nuovo, ancora aperto e
+che matcha le keyword. In tutti gli altri casi resta in silenzio:
+
+| Situazione | Messaggio Telegram |
+|------------|--------------------|
+| Nuovo bando aperto che matcha le keyword | ✅ Sì |
+| In pagina ci sono solo bandi scaduti | ❌ No (è normale) |
+| Nessun bando nuovo rispetto a ieri | ❌ No |
+| La pagina non contiene più nessun bando (scraping rotto) | ⚠️ Sì, ma al massimo una volta ogni 7 giorni |
+| Errore tecnico (rete, AI, Telegram) | Solo se `NOTIFY_ERRORS=true` |
+
+Un bando che fallisce durante l'elaborazione **non** viene segnato come visto, così
+viene ritentato all'esecuzione successiva.
 
 ---
 
@@ -65,6 +83,12 @@ Vai in **Settings → Secrets and variables → Actions** del tuo fork e aggiung
 | `TELEGRAM_CHAT_ID` | Il tuo Chat ID numerico |
 | `OPENROUTER_API_KEY` | La tua chiave API di OpenRouter |
 | `PROFILO` | Il tuo profilo professionale (vedi sezione sotto) |
+
+Opzionale, in **Settings → Secrets and variables → Actions → Variables**:
+
+| Nome | Valore |
+|------|--------|
+| `NOTIFY_ERRORS` | `true` per ricevere su Telegram anche gli errori tecnici (default: `false`) |
 
 ### 5. Configura il tuo profilo
 
@@ -175,18 +199,47 @@ concorsi-informatici-monitor-telegram/
 │   └── workflows/
 │       └── monitor.yml       ← workflow GitHub Actions
 ├── tests/
-│   └── test_ai.py            ← test della valutazione AI
+│   ├── fixtures/
+│   │   └── listing_page.html ← estratto del markup reale, usato dai test
+│   ├── test_ai.py            ← test della valutazione AI
+│   └── test_parsing.py       ← test offline di parsing e logica di notifica
 ├── .env.example              ← template per le variabili d'ambiente
 ├── .gitignore
 ├── ai_prompt.txt             ← testo per prompt preciso e strutturato
 ├── main.py                   ← script principale
 ├── requirements.txt          ← dipendenze Python
-└── seen_bandi.json           ← bandi già notificati (aggiornato automaticamente)
+└── seen_bandi.json           ← stato del monitor (aggiornato automaticamente)
 ```
+
+Il file `seen_bandi.json` ha questa forma:
+
+```json
+{
+  "seen": ["https://www.concorsipubblici.com/..."],
+  "last_structure_alert": null
+}
+```
+
+`seen` è lo storico dei bandi già notificati (non viene mai sovrascritto, solo
+esteso), `last_structure_alert` serve a non ripetere ogni giorno l'avviso di
+scraping rotto. Il vecchio formato a lista semplice viene letto senza problemi.
 
 ---
 
 ## 🧪 Test
+
+Test offline di parsing e logica di notifica: non tocca la rete, non serve
+nessun secret e non servono i binari del browser di Playwright.
+
+```bash
+python tests/test_parsing.py
+```
+
+Se ottieni `ModuleNotFoundError`, l'ambiente virtuale non ha le dipendenze:
+
+```bash
+pip install -r requirements.txt
+```
 
 Per testare solo la valutazione AI senza eseguire tutto lo script:
 

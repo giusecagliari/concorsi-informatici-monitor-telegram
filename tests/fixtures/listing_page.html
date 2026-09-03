@@ -1,0 +1,74 @@
+<!-- Estratto reale della pagina di elenco di concorsipubblici.com (struttura Drupal),
+     con in piu' due bandi ANCORA APERTI costruiti sullo stesso markup per i test. -->
+<div class="view-content">
+
+  <!-- 1) ATTIVO + keyword "funzionario" -> deve generare notifica -->
+  <article data-history-node-id="999001" class="node node--type-contest node--view-mode-teaser">
+    <h2 class="contest-title">
+      <a href="/comune-di-treviso-concorso-funzionario-informatico-treviso-2030" target="_blank" rel="bookmark norefferr noopener">
+        <span>Comune di Treviso , 1 Funzionario informatico</span>
+      </a>
+    </h2>
+    <div class="node__content">
+      <div class="field field--name-field-expiration-date field--type-datetime field--label-inline clearfix">
+        <div class="field__label">Scadenza</div>
+        <div class="field__item">
+          <time datetime="2030-12-31T12:00:00Z">31/12/2030</time>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 2) ATTIVO ma senza keyword -> NON deve generare notifica -->
+  <article data-history-node-id="999002" class="node node--type-contest node--view-mode-teaser">
+    <h2 class="contest-title">
+      <a href="/provincia-di-treviso-concorso-istruttore-informatico-treviso-2030" target="_blank" rel="bookmark norefferr noopener">
+        <span>Provincia di Treviso , 1 Istruttore informatico</span>
+      </a>
+    </h2>
+    <div class="node__content">
+      <div class="field field--name-field-expiration-date field--type-datetime field--label-inline clearfix">
+        <div class="field__label">Scadenza</div>
+        <div class="field__item">
+          <time datetime="2030-11-30T12:00:00Z">30/11/2030</time>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 3) SCADUTO + keyword (markup reale) -> NON deve generare notifica -->
+  <article data-history-node-id="110146" class="node node--type-contest node--view-mode-teaser is-expired">
+    <h2 class="contest-title">
+      <a href="/universita-di-verona-concorso-funzionario-tecnico-informatico-verona-2026-1" target="_blank" rel="bookmark norefferr noopener">
+        <span>Universita&rsquo; degli Studi di Verona , 1  Funzionario - settore professionale tecnico-informatico </span>
+      </a>
+    </h2>
+    <div class="node__content">
+      <div class="field field--name-field-expiration-date field--type-datetime field--label-inline clearfix is-expired">
+        <div class="field__label">Scadenza</div>
+        <div class="field__item">
+          <time datetime="2026-05-02T12:00:00Z">02/05/2026</time>
+          <span class="expired">Scaduto</span>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 4) SCADUTO per data, ma senza classe/badge -> il fallback sulla data deve reggere -->
+  <article data-history-node-id="999004" class="node node--type-contest node--view-mode-teaser">
+    <h2 class="contest-title">
+      <a href="/comune-di-padova-concorso-specialista-informatico-padova-2020" target="_blank" rel="bookmark norefferr noopener">
+        <span>Comune di Padova , 1 Specialista informatico</span>
+      </a>
+    </h2>
+    <div class="node__content">
+      <div class="field field--name-field-expiration-date field--type-datetime field--label-inline clearfix">
+        <div class="field__label">Scadenza</div>
+        <div class="field__item">
+          <time datetime="2020-01-31T12:00:00Z">31/01/2020</time>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</div>
