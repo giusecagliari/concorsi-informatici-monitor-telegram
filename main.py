@@ -30,7 +30,7 @@ MAX_SEEN_BANDI = 1000
 STRUCTURE_ALERT_COOLDOWN_DAYS = 7
 KEYWORDS = ["funzionario", "specialista"]
 WEBSITE_URL_ROOT = "https://www.concorsipubblici.com"
-WEBSITE_URL_LIST = "https://www.concorsipubblici.com/concorsi/occupazione/pro/settore-informatico-600/loc/veneto"
+WEBSITE_URL_LIST = "https://www.concorsipubblici.com/concorsi/occupazione/pro/settore-informatico-600/loc/sardegna"
 
 # ====================== FUNZIONI DI SCRAPING CON PLAYWRIGHT ======================
 
