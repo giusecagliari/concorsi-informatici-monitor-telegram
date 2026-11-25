@@ -28,7 +28,7 @@ SEEN_BANDI_FILE = "seen_bandi.json"
 MAX_SEEN_BANDI = 1000
 # Ogni quanti giorni al massimo ripetere l'alert "struttura HTML cambiata"
 STRUCTURE_ALERT_COOLDOWN_DAYS = 7
-KEYWORDS = ["funzionario", "specialista"]
+KEYWORDS = ["funzionario", "specialista", "analista", "sistemista", "esperto", "ingegnere", "informatic", "ict", "cyber", "sicurezza", "digitale"]
 WEBSITE_URL_ROOT = "https://www.concorsipubblici.com"
 WEBSITE_URL_LIST = "https://www.concorsipubblici.com/concorsi/occupazione/pro/settore-informatico-600/loc/sardegna"
 
