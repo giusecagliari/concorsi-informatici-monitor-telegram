@@ -19,9 +19,9 @@ OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
 # solo quando c'è davvero un nuovo bando da segnalare.
 NOTIFY_ERRORS = os.environ.get('NOTIFY_ERRORS', 'false').lower() in ('1', 'true', 'yes')
 AI_MODELS = [
-    "z-ai/glm-4.5-air:free",
-    "nvidia/nemotron-nano-9b-v2:free",
-    "meta-llama/llama-3.3-70b-instruct:free",
+    "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "google/gemma-4-31b-it:free",
+    "nvidia/nemotron-3.5-lightning:free",
 ]
 SEEN_BANDI_FILE = "seen_bandi.json"
 # Numero massimo di URL conservati nello storico (evita che il file cresca all'infinito)
